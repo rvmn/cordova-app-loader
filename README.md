@@ -18,7 +18,7 @@ A little later...
 
 Check out [Cordova App Loader](http://data.madebymark.nl/cordova-app-loader/index.html) in Chrome for a demo! (**Chrome only!**)
 
-Or run on your own computer:
+Or install on your own computer:
 
 ```bash
 git clone https://github.com/rvmn/cordova-app-loader/
@@ -27,7 +27,7 @@ sudo npm install --unsafe-perm
 cordova platform add ios android blackberry10 firefoxos
 ```
 
-All code is in the `dev` directory. Modify `serverRoot` in `dev/app.js` to run your own server.
+All app code is in the `dev` directory. Modify `serverRoot` in `dev/app.js` to point to your own server.
 Then use grunt commands to minify and install your development branch into the cordova (/www) and server dir (/server/www). Commands are:
 ```
 grunt // minify and copy files from dev dir and build a manifest.json
@@ -35,7 +35,7 @@ grunt watch // watch dev dir and minify, copy, json-build on change
 grunt nodev // only build a manifest.json, no copying or minifying
 ```
 
-To quickly run a server and emulator:
+After copying the dev directory, run a server and emulator using:
 ``` npm run ios``` or ```npm run android```
 
 ## Quick Start
