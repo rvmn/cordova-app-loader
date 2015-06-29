@@ -1,6 +1,6 @@
 cordova-app-loader
 ==========
-> Remote update your Cordova App
+> Remote update your Cordova App using Hot Code Pushing
 
 1. Write a **manifest.json** to **bootstrap.js** your app.
 2. Build and deploy your app.
@@ -21,26 +21,33 @@ Check out [Cordova App Loader](http://data.madebymark.nl/cordova-app-loader/inde
 Or run on your own computer:
 
 ```bash
-git clone git@github.com:markmarijnissen/cordova-app-loader.git
+git clone https://github.com/rvmn/cordova-app-loader/
 cd cordova-app-loader
-cordova platform add ios@3.7.0
-cordova plugin add org.apache.cordova.file
-cordova plugin add org.apache.cordova.file-transfer
-cordova run ios
+sudo npm install --unsafe-perm
+cordova platform add ios android blackberry10 firefoxos
 ```
 
-All code is in the `www` directory. Modify `serverRoot` in `www/app.js` to run your own server.
+All code is in the `dev` directory. Modify `serverRoot` in `dev/app.js` to run your own server.
+Then use grunt commands to minify and install your development branch into the cordova (/www) and server dir (/server/www). Commands are:
+```
+grunt // minify and copy files from dev dir and build a manifest.json
+grunt watch // watch dev dir and minify, copy, json-build on change
+grunt nodev // only build a manifest.json, no copying or minifying
+```
+
+To quickly run a server and emulator:
+``` npm run ios``` or ```npm run android```
 
 ## Quick Start
 
-Check out [autoupdate.js](https://github.com/markmarijnissen/cordova-app-loader/blob/master/autoupdate.js) - it automatically updates when you open or resume the app.
+Also out [autoupdate.js](https://github.com/markmarijnissen/cordova-app-loader/blob/master/autoupdate.js) - it automatically updates when you open or resume the app. Set update speed as timeout in 
 
 Automatic updates have a few downsides:
 
 * Downloading files in the background can slow down performance (sluggish UI).
 * Automatically updating can interrupt the user.
 
-### Step by step instruction:
+### Step by step manual installation instruction:
 
 1. Setup Cordova (see below)
 1. Download to your `www` directory:
@@ -66,9 +73,9 @@ Now you can remote update your app:
 6. Upload a new **manifest.json** (+ files) to your server.
 7. Reopen your app to download and apply the update.
 
-## Installation
+## Manual installation
 
-### Setup Cordova
+### 1. Setup Cordova
 
 ```bash
   cordova platform add ios@3.7.0
@@ -84,7 +91,7 @@ You need **bootstrap.js** ([github](https://github.com/markmarijnissen/cordova-a
 
 Add **bootstrap.js** to your [index.html](https://raw.githubusercontent.com/markmarijnissen/cordova-app-loader/master/www/index.html).
 
-### Download and include CordovaAppLoader (and dependencies)
+### 2. Download and include CordovaAppLoader (and dependencies)
 
 **Option 1: Download all dependencies as a single pre-build file (easy)**
 
@@ -114,7 +121,7 @@ If you want to use your own Promise library, you have to load every module indiv
   npm install bluebird  # or another library that follows the Promise/A+ spec.
 ```
 
-## The Manifest
+## 3. The Manifest
 
 Before you start, you need to write a **manifest.json** to describe:
 
@@ -166,7 +173,7 @@ node node_modules/cordova-app-loader/bin/update-manifest [root-directory] [manif
 
 It will update the version of only changed files (with a hash of the content).
 
-There is also [a Gruntfile](https://gist.github.com/lylepratt/d8bf84b3b7d6932e3549) available.
+You can also use ```grunt manifest```
 
 ## Usage / API
 
